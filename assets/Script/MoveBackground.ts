@@ -18,6 +18,11 @@ export class MoveBackground extends Component {
     public startBack()    {
         this.speed = -100
     }
+
+    
+    public stopBack()    {
+        this.speed = 0
+    }
 }
 
 

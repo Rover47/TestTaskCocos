@@ -1,5 +1,6 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, EventHandler, Node } from 'cc';
 import { AnimatioControl } from './AnimatioControl';
+import { JumpComponent } from './JumpComponent';
 const { ccclass, property } = _decorator;
 
 @ccclass('HeroController')
@@ -8,30 +9,52 @@ export class HeroController extends Component {
     @property(AnimatioControl)
     heroAnim: AnimatioControl = null;
 
-    
-    @property({type : Boolean})
+    @property(JumpComponent)
+    jumpComponent: JumpComponent = null;
+
+    @property({ type: Boolean })
     private isGameStart = false;
 
-    start() {
+    private isGameFinish = false;
 
+    @property({ type: [EventHandler], tooltip: 'Колбэки, настраиваемые в инспекторе' })
+    public onTriggered: EventHandler[] = [];
+
+    /** Вызывай это из кода, когда нужно сработать событию */
+    public trigger() {
+        // value придёт первым параметром в твой handler,
+        // customEventData (если задан) придёт последним параметром
+        EventHandler.emitEvents(this.onTriggered);
     }
 
-    update(deltaTime: number) {
-        
-    }
-
-    public startGame (){
+    public startGame() {
         this.isGameStart = true;
+        this.trigger();
+        this.heroAnim.playIdle();
     }
 
-    public recieveClick(){
-        if(this.isGameStart == false) {
+    public recieveClick() {
+
+        if (this.isGameFinish == true) {
+            console.log("Game Is FINISH")
+            return;
+        }
+
+        if (this.isGameStart == false) {
             console.log("Game Not started")
             return;
         }
 
+        if (this.heroAnim.IsAnimBisy() == true) {
+            console.log("Anim Bisy")
+            return;
+        }
+
         this.heroAnim.playJumpThenRun();
+        this.jumpComponent.jump();
     }
+
+
 }
 
 

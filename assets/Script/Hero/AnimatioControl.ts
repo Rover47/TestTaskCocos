@@ -12,6 +12,7 @@ export class AnimatioControl extends Component {
     clips: AnimationClip[] = [];
 
     private clipByName = new Map<string, AnimationClip>();
+    private isAnimBisy = false;
 
     onLoad() {
         if (!this.anim) this.anim = this.getComponent(Animation)!;
@@ -41,22 +42,28 @@ export class AnimatioControl extends Component {
     }
 
     public playIdle() { this.play('HeroIdle', 0.1); }
-    public playRun() { this.play('HeroRun', 0.1); }
+    public playRun() { this.play('HeroRun', 0.1); this.isAnimBisy = false; }
     public playJump() { this.play('HeroJump', 0.05); }
     //public playHit() { this.play('HeroHit', 0.0); }
     public playHitThenRun() {
         this.play('HeroHit');
+        this.isAnimBisy = true;
+        
         this.anim.once(Animation.EventType.FINISHED, () => {
             this.playRun();
         }, this);
     }
     public playJumpThenRun() {
         this.play('HeroJump');
-        console.log("Game Not started")
+        this.isAnimBisy = true;
         
         this.anim.once(Animation.EventType.FINISHED, () => {
             this.playRun();
         }, this);
+    }
+
+    public IsAnimBisy(): Boolean {
+        return this.isAnimBisy; 
     }
 }
 
