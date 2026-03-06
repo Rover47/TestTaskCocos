@@ -1,6 +1,7 @@
 import { _decorator, Component, EventHandler, Node } from 'cc';
 import { AnimatioControl } from './AnimatioControl';
 import { JumpComponent } from './JumpComponent';
+import { LifeCounter } from '../Game/LifeCounter';
 const { ccclass, property } = _decorator;
 
 @ccclass('HeroController')
@@ -11,6 +12,9 @@ export class HeroController extends Component {
 
     @property(JumpComponent)
     jumpComponent: JumpComponent = null;
+
+    @property(LifeCounter)
+    lifeCounter: LifeCounter = null;
 
     @property({ type: Boolean })
     private isGameStart = false;
@@ -57,6 +61,7 @@ export class HeroController extends Component {
 
     public reciveHit()    {
         this.heroAnim.playHitThenRun();
+        this.lifeCounter.TakeDamage();
     }
 
 }
