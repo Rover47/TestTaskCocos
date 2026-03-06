@@ -33,10 +33,7 @@ export class EnemyController extends Component {
      protected update(deltaTime: number) {
         this.node.setPosition(this.node.getPosition().x += this.speed * deltaTime, this.node.position.y)
         //console.log(this.node.getPosition().x)
-
-            console.log(this._pointsQueue.length)
         this.processPoints();
-
     }
       
     public collectAndSortPoints() {
@@ -53,7 +50,7 @@ export class EnemyController extends Component {
         while (this._pointsQueue.length > 0) {
             const point = this._pointsQueue[0];
 
-            console.log(point.x)
+            //console.log(point.x)
 
             if (!point || !point.isValid) {
                 this._pointsQueue.shift();

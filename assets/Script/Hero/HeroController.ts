@@ -2,6 +2,7 @@ import { _decorator, Component, EventHandler, Node } from 'cc';
 import { AnimatioControl } from './AnimatioControl';
 import { JumpComponent } from './JumpComponent';
 import { LifeCounter } from '../Game/LifeCounter';
+import { MoveBackground } from '../MoveBackground';
 const { ccclass, property } = _decorator;
 
 @ccclass('HeroController')
@@ -9,6 +10,9 @@ export class HeroController extends Component {
 
     @property(AnimatioControl)
     heroAnim: AnimatioControl = null;
+
+    @property(MoveBackground)
+    moveBack:MoveBackground = null;
 
     @property(JumpComponent)
     jumpComponent: JumpComponent = null;
@@ -47,6 +51,11 @@ export class HeroController extends Component {
         this.finish();
         this.heroAnim.playIdle();
     }
+    
+     public failGame() {
+        this.isGameFinish = true;
+        this.heroAnim.playIdle();
+    }
 
     public recieveClick() {
 
@@ -55,6 +64,8 @@ export class HeroController extends Component {
             return;
         }
 
+        this.moveBack.startBack();
+        
         if (this.isGameStart == false) {
             console.log("Game Not started")
             this.heroAnim.playRun();

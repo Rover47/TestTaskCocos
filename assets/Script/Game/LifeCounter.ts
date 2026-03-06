@@ -31,7 +31,9 @@ export class LifeCounter extends Component {
 
         if (this.lives <= 0) {
             this.isDead = true;
+            console.log("DEAD")
             EventHandler.emitEvents(this.onNoLivesEvents, this);
+            console.log("DEAD All")
         }
     }
 
