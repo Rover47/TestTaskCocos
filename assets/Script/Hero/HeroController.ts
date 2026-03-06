@@ -21,16 +21,30 @@ export class HeroController extends Component {
 
     private isGameFinish = false;
 
-    @property({ type: [EventHandler], tooltip: 'Колбэки, настраиваемые в инспекторе' })
+    @property({ type: [EventHandler], tooltip: 'Start gjump' })
     public onTriggered: EventHandler[] = [];
+
+    @property({ type: [EventHandler], tooltip: 'Finish game' })
+    public onFinish: EventHandler[] = [];
+
 
     public trigger() {
         EventHandler.emitEvents(this.onTriggered);
     }
 
+      public finish() {
+        EventHandler.emitEvents(this.onFinish);
+    }
+
     public startGame() {
         this.isGameStart = true;
         this.trigger();
+        this.heroAnim.playIdle();
+    }
+
+     public finishGame() {
+        this.isGameFinish = true;
+        this.finish();
         this.heroAnim.playIdle();
     }
 

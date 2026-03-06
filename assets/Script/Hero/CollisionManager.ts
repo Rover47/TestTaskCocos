@@ -68,6 +68,10 @@ export class CollisionManager extends Component {
         {
             other.node.getComponent(UICoinFlyFixedValue)?.PlayFlyToCounter();
         }
+         else if(other.node.name === 'Finish')
+        {
+            this.heroController.finishGame();
+        }
     }
 
     protected onCollisionExit(other: Collider2D, contact: IPhysics2DContact | null) {
