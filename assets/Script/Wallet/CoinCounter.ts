@@ -27,7 +27,7 @@ export class CoinCounter extends Component {
 
     private updateLabel() {
         if (this.valueLabel) {
-            this.valueLabel.string = this._value.toString();
+            this.valueLabel.string = "$" + this._value.toString();
         }
     }
 }

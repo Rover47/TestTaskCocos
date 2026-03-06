@@ -60,7 +60,7 @@ export class CollisionManager extends Component {
         if (other.node.name === 'first-tutor') { 
             this.heroController.startGame();
         }
-        else if(other.node.name === 'Cone')
+        else if(other.node.name === 'Cone' || other.node.name === 'Enemy')
         {
             this.heroController.reciveHit();
         }

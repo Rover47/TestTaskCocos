@@ -24,10 +24,7 @@ export class HeroController extends Component {
     @property({ type: [EventHandler], tooltip: 'Колбэки, настраиваемые в инспекторе' })
     public onTriggered: EventHandler[] = [];
 
-    /** Вызывай это из кода, когда нужно сработать событию */
     public trigger() {
-        // value придёт первым параметром в твой handler,
-        // customEventData (если задан) придёт последним параметром
         EventHandler.emitEvents(this.onTriggered);
     }
 
