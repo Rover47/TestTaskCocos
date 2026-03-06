@@ -42,6 +42,7 @@ export class HeroController extends Component {
 
         if (this.isGameStart == false) {
             console.log("Game Not started")
+            this.heroAnim.playRun();
             return;
         }
 
@@ -54,6 +55,9 @@ export class HeroController extends Component {
         this.jumpComponent.jump();
     }
 
+    public reciveHit()    {
+        this.heroAnim.playHitThenRun();
+    }
 
 }
 

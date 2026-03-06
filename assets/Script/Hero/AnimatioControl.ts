@@ -44,7 +44,7 @@ export class AnimatioControl extends Component {
     public playIdle() { this.play('HeroIdle', 0.1); }
     public playRun() { this.play('HeroRun', 0.1); this.isAnimBisy = false; }
     public playJump() { this.play('HeroJump', 0.05); }
-    //public playHit() { this.play('HeroHit', 0.0); }
+    public playHit() { this.play('HeroHit', 0.0); }
     public playHitThenRun() {
         this.play('HeroHit');
         this.isAnimBisy = true;

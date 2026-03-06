@@ -7,6 +7,7 @@ import {
     PhysicsSystem2D,
 } from 'cc';
 import { HeroController } from './HeroController';
+import { UICoinFlyFixedValue } from '../Wallet/UICoinFlyFixedValue';
 
 const { ccclass, property } = _decorator;
 
@@ -56,9 +57,17 @@ export class CollisionManager extends Component {
     }
 
     protected onCollisionEnter(other: Collider2D, contact: IPhysics2DContact | null) {
-         if (other.node.name === 'first-tutor') { 
+        if (other.node.name === 'first-tutor') { 
             this.heroController.startGame();
-          }
+        }
+        else if(other.node.name === 'Cone')
+        {
+            this.heroController.reciveHit();
+        }
+        else if(other.node.name === 'Coin')
+        {
+            other.node.getComponent(UICoinFlyFixedValue)?.PlayFlyToCounter();
+        }
     }
 
     protected onCollisionExit(other: Collider2D, contact: IPhysics2DContact | null) {

@@ -5,6 +5,9 @@ const { ccclass, property } = _decorator;
 export class MoveBackground extends Component {
 
     @property({type: Number})
+    private customSpeed = 100
+
+
     private speed = 0
 
     protected start() {
@@ -16,7 +19,7 @@ export class MoveBackground extends Component {
     }
 
     public startBack()    {
-        this.speed = -100
+        this.speed = this.customSpeed * -1;
     }
 
     
