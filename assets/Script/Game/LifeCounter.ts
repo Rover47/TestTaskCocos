@@ -5,11 +5,12 @@ const { ccclass, property } = _decorator;
 export class LifeCounter extends Component {
     @property({ type: [Node] })
     public hearts: Node[] = [];
-    // Сюда перетаскиваешь 3 сердечка в порядке: 1, 2, 3
+    
+    @property({ type: [EventHandler] })
+    public onHitEvents: EventHandler[] = [];
 
     @property({ type: [EventHandler] })
     public onNoLivesEvents: EventHandler[] = [];
-    // Сюда в инспекторе добавляешь кастомные события "при смерти"
 
     private lives: number = 3;
     private isDead: boolean = false;
@@ -28,6 +29,8 @@ export class LifeCounter extends Component {
         }
 
         this.refreshHearts();
+        
+        EventHandler.emitEvents(this.onHitEvents, this);
 
         if (this.lives <= 0) {
             this.isDead = true;

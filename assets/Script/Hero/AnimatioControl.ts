@@ -1,4 +1,4 @@
-import { _decorator, Animation, AnimationClip, Component, Node } from 'cc';
+import { _decorator, Animation, AnimationClip, Component, EventHandler, Node } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('AnimatioControl')
@@ -10,6 +10,11 @@ export class AnimatioControl extends Component {
 
     @property({ type: [AnimationClip] })
     clips: AnimationClip[] = [];
+
+
+    @property({ type: [EventHandler] })
+    public onJumpEvents: EventHandler[] = [];
+
 
     private clipByName = new Map<string, AnimationClip>();
     private isAnimBisy = false;
@@ -23,7 +28,7 @@ export class AnimatioControl extends Component {
             this.anim.addClip(clip, clip.name);
         }
     }
-    
+
     public play(name: string, fade = 0) {
         const clip = this.clipByName.get(name);
         if (!clip) {
@@ -48,7 +53,7 @@ export class AnimatioControl extends Component {
     public playHitThenRun() {
         this.play('HeroHit');
         this.isAnimBisy = true;
-        
+
         this.anim.once(Animation.EventType.FINISHED, () => {
             this.playRun();
         }, this);
@@ -57,13 +62,15 @@ export class AnimatioControl extends Component {
         this.play('HeroJump');
         this.isAnimBisy = true;
         
+        EventHandler.emitEvents(this.onJumpEvents, this);
+        
         this.anim.once(Animation.EventType.FINISHED, () => {
             this.playRun();
         }, this);
     }
 
     public IsAnimBisy(): Boolean {
-        return this.isAnimBisy; 
+        return this.isAnimBisy;
     }
 }
 
